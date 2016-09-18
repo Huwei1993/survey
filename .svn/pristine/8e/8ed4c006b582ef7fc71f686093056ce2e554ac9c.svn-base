@@ -1,0 +1,24 @@
+package com.jxlg.dao;
+
+/**
+ * 模板表数据访问层
+ * @author feng
+ *
+ *
+ */
+public interface ModuleDao {
+	/*查询所有模板*/
+	public void findAllModule();
+	
+	/*查询模板*/
+	public void findModule();
+	
+	/*添加模板*/
+	public void addModule();
+	
+	/*删除模板*/
+	public void deleteModule();
+	
+	/*更新模板*/
+	public void updateModule();
+}

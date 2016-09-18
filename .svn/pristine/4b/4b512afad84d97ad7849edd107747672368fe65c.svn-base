@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.UseranswerDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="useranswer" id="useranswerResultMap">
+		<id column="aid" property="aid" />
+		<result column="uid" property="uid" />
+		<result column="qaid" property="qaid" />
+		<result column="answer" property="answer" />
+		<result column="age" property="age" />
+		<result column="sex" property="sex" />
+	</resultMap>
+
+	<!-- 多条件查询答案 -->
+	<select id="findUseranswer" resultMap="useranswerResultMap"
+		parameterType="useranswer">
+		select * from useranswer where
+		<if test="aid!=0">
+			aid = #{aid}
+			<if test="uid!=0 or qaid!=0 or answer!=null or age!=0 or sex!=null">and</if>
+		</if>
+		<if test="uid!=0">
+			uid = #{uid}
+			<if test="qaid!=0 or answer!=null or age!=0 or sex!=null">and</if>
+		</if>
+		<if test="qaid!=0">
+			qaid = #{qaid}
+			<if test="answer!=null or age!=0 or sex!=null">and</if>
+		</if>
+		<if test="answer!=null">
+			answer = #{answer}
+			<if test="age!=0 or sex!=null">and</if>
+		</if>
+		<if test="age!=0">
+			age = #{age}
+			<if test="sex!=null">and</if>
+		</if>
+		<if test="sex!=null">
+			sex = #{sex}
+		</if>
+	</select>
+
+	<insert id="addUseranswer" parameterType="useranswer">
+		insert into
+		useranswer(uid,qaid,answer,age,sex)
+		values(<if test="uid!=0">#{uid}</if><if test="uid==0">null</if>,#{qaid},#{answer},#{age},#{sex})
+	</insert>
+
+</mapper>

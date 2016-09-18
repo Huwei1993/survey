@@ -1,0 +1,50 @@
+package com.jxlg.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.jxlg.dao.ProblemDao;
+import com.jxlg.entity.Problem;
+import com.jxlg.service.IProblemService;
+/**
+ * 问题表服务接口实现
+ * @author feng
+ *
+ */
+@Service(value = "iProblemService")
+public class ProblemServiceImpl implements IProblemService {
+	
+	@Resource(name = "problemDao")
+	private ProblemDao problemDao;
+
+	@Override
+	public List<Problem> findAllProblem() {
+		return problemDao.findAllProblem();
+	}
+
+	@Override
+	public List<Problem> findProblem(Problem problem) {
+		return problemDao.findProblem(problem);
+	}
+
+	@Override
+	public int addProblem(Problem problem) {
+		return problemDao.addProblem(problem);
+	}
+
+	@Override
+	public int deleteProblemBypid(int pid) {
+		return problemDao.deleteProblemBypid(pid);
+	}
+
+	@Override
+	public int updateProblem(Problem problem) {
+		return problemDao.updateProblem(problem);
+	}
+
+
+
+}

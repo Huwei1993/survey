@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.QapDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="qap" id="qapResultMap">
+		<id column="qaid" property="qaid" />
+		<result column="pid" property="pid" />
+		<result column="qid" property="qid" />
+	</resultMap>
+
+
+	<insert id="addQap" useGeneratedKeys="true" parameterType="java.util.List">
+		<selectKey resultType="long" keyProperty="id" order="AFTER">
+			SELECT
+			LAST_INSERT_ID()
+		</selectKey>
+		insert into qap (pid,qid) values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.pid},#{item.qid})
+		</foreach>
+	</insert>
+
+	<!-- 通过qid查询 -->
+	<select id="findPidByQid" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select pid from qap where qid = #{qid}
+	</select>
+	
+	<!-- 联合查询qaid -->
+		<select id="findQaid" resultType="java.lang.Integer">
+		select qaid from qap
+		<include refid="whereConstant" />
+	</select>
+	
+	<sql id="whereConstant">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="qid!=null">
+				and qid = #{qid}
+			</if>
+			<if test="pid!=null">
+				and pid = #{pid}
+			</if>
+		</trim>
+	</sql>
+
+</mapper>

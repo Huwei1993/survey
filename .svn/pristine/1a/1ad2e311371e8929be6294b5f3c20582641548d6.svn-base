@@ -1,0 +1,60 @@
+package com.jxlg.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.jxlg.entity.Problem;
+import com.jxlg.service.IProblemService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "classpath*:config/applicationContext.xml",
+		"classpath*:config/dispatcher-servlet.xml" })
+public class ProblemTest {
+
+	@Resource(name = "iProblemService")
+	private IProblemService iProblemService;
+
+	@Test
+	public void testFindAllProblem() {
+		List<Problem> problemList = iProblemService.findAllProblem();
+		for (Problem problem : problemList) {
+			System.out.println(problem.toString());
+		}
+	}
+
+	@Test
+	public void testFindProblem(){
+		Problem p = new Problem(0, "看", "看", "看", "看","看" , 0, 0, 0, 0, 0, true);
+		List<Problem> problemList = iProblemService.findProblem(p);
+		for (Problem problem : problemList) {
+			System.out.println(problem.toString());
+		}
+	}
+
+	@Test
+	public void testAddProblem() {
+		Problem p = new Problem("张涛能坚持多久", "5秒", "10秒", "15秒", "20秒", 1, 2, 3, 4, 1, true);
+		int n = iProblemService.addProblem(p);
+		System.out.println(n);
+	}
+
+	@Test
+	public void testUpdateProblem() {
+		Problem p = new Problem(1,"胡伟多高", "120", "140", "160", "180", 1, 2, 3, 4, 1, true);
+		int n = iProblemService.updateProblem(p);
+		System.out.println(n);
+	}
+
+	@Test
+	public void testDeleteProblemBypid() {
+		int n = iProblemService.deleteProblemBypid(3);
+		System.out.println(n);
+	}
+
+}

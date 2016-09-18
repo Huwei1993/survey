@@ -1,0 +1,29 @@
+package com.jxlg.dao;
+
+import java.util.List;
+
+import com.jxlg.entity.Problem;
+
+/**
+ * 问题表数据访问层
+ * @author feng
+ * 
+ *
+ */
+public interface ProblemDao {
+	/*查询所有问题*/
+	public List<Problem> findAllProblem();
+	
+	/*查询问题*/
+	public List<Problem> findProblem(Problem problem);
+	
+	/*添加问题*/
+	public int addProblem(Problem problem);
+	
+	/*通过id删除问题*/
+	public int deleteProblemBypid(int pid);
+	
+	/*更新问题*/
+	public int updateProblem(Problem problem);
+
+}

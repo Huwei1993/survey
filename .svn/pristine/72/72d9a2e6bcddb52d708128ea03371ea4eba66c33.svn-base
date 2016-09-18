@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.QapDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="qap" id="qapResultMap">
+		<id column="qaid" property="qaid" />
+		<result column="pid" property="pid" />
+		<result column="qid" property="qid" />
+	</resultMap>
+
+
+	<!-- 通过qaid查询 -->
+	<select id="findByQaid" resultType="qap" parameterType="java.lang.Integer">
+		select * from qap where qaid = #{qaid}
+	</select>
+
+	<!-- 通过pid查询 -->
+	<select id="findByPid" resultMap="qapResultMap" parameterType="java.lang.Integer">
+		select * from qap where pid =
+		#{pid}
+	</select>
+
+	<!-- 通过qaid查询 -->
+	<select id="findByQid" resultMap="qapResultMap" parameterType="java.lang.Integer">
+		select * from qap where qid =
+		#{qid}
+	</select>
+
+	<!-- 通过qaid删除 -->
+	<delete id="deleteByQaid" parameterType="java.lang.Integer">
+		delete from qap where
+		qaid = #{qaid}
+	</delete>
+
+	<!-- 通过qid删除 -->
+	<delete id="deleteByQid" parameterType="java.lang.Integer">
+		delete from qap where
+		qid = #{qid}
+	</delete>
+
+</mapper>

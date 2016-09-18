@@ -1,0 +1,62 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.body_survey_list {
+	background: snow;
+}
+
+.body_web {
+	background-image: url(image/survey_web_background.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed
+}
+
+.wapper {
+	width: 80%;
+	height: 1000px;
+	margin: 0px auto;
+	/* -moz 支持浏览器火狐操作 */
+}
+
+.heading {
+	width: 100%;
+	height: 90px;
+	background-color: snow;
+	margin: 0px auto;
+}
+
+.clssweb{
+	color:blue;
+	position:absolute;
+	top:230px;
+	left:280px;
+}
+.clssweb2{	
+	color:white;
+	position:absolute;
+	top:280px;
+	left:300px;
+}
+
+.add_module{
+	position: absolute;
+	top:80px;
+	left: 70px;
+}
+
+.add_module_input{
+	position: absolute;
+	top:80px;
+	left:140px;
+	width: 200px;
+	height:30px;
+}
+.user_name{
+	position: absolute;
+	top:10px;
+	left:800px;
+	
+}
+

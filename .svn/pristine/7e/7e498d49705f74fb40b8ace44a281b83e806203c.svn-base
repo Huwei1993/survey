@@ -1,0 +1,15 @@
+.name{
+	background:url('../img/main-nav-bg.png') repeat-x 0 0 #204077;
+}
+.header{
+	.header{background-color:#1B3160;height:30px;width:100%;overflow:hidden;
+}
+.dl-title{
+	float:left;color:#c1d5ec;font-family:"Microsoft YaHei";margin-left:12px;font-size:18px;line-height:36px;
+}
+.dl-log-user{
+	font-style:bold;
+	}
+.dl-log-quit{
+	color:#c1d5ec;padding-left:8px;
+	}

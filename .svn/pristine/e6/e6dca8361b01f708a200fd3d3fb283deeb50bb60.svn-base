@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.QuestionnaireDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="questionnaire" id="questionnaireResultMap">
+		<id column="qid" property="qid" />
+		<result column="qname" property="qname" />
+		<result column="uid" property="uid" />
+		<result column="etime" property="etime" />
+		<result column="stime" property="stime" />
+		<result column="ftime" property="ftime" />
+		<result column="qexplain" property="qexplain" />
+		<result column="quse" property="quse" />
+		<result column="mid" property="mid" />
+	</resultMap>
+
+	<insert id="addQuestionnaire" parameterType="questionnaire">
+		insert into
+		questionnaire(qname,uid,etime,stime,ftime,qexplain,mid,quse)
+		values(#{qname},#{uid},#{etime}, #{stime}, #{ftime},#{qexplain}, #{mid}, #{quse})
+	</insert>
+
+</mapper>

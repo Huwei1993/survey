@@ -1,0 +1,11 @@
+package com.jxlg.dao;
+
+/**
+ * 用户问题实体访问层
+ * @author feng
+ *
+ *
+ */
+public interface UseranswerDao {
+
+}

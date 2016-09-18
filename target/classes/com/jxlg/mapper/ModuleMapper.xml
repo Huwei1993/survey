@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.ModuleDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="module" id="moduleResultMap">
+		<id column="mid" property="id" />
+		<result column="type" property="type" />
+		<result column="muse" property="muse" />
+		<result column="mexplain" property="mexplain" />
+	</resultMap>
+
+	<!-- 查询模块 -->
+	<select id="findAllModule" resultMap="moduleResultMap">
+		select * from module
+	</select>
+	<!-- 插入数据 -->
+	<insert id="addModule" parameterType="module">
+		insert into module(type,muse,mexplain) values(#{type},#{muse},#{mexplain})
+	</insert>
+	<!-- 删除数据 -->
+	<delete id="deleteModuleById" parameterType="Integer">
+		delete from module where mid =#{mid}
+	</delete>
+	<!-- 查询满足条件的用户信息 -->
+	<select id="getModulePages" resultType="module">
+		select * from module
+		limit #{start}, #{limit}
+	</select>
+
+	<!-- 更新数据 -->
+	<update id="updataModuleById" parameterType="module">
+		update module set type=#{type},muse=#{muse},mexplain=#{mexplain} where
+		mid=#{id}
+
+	</update>
+	<!-- 根据Id查询数据 -->
+	<select id="findMudoleById" parameterType="Integer" resultMap="moduleResultMap">
+		select * from module where mid=#{id}
+	</select>
+
+	<!-- 查询总数量 -->
+	<!-- 统计数量 -->
+	<select id="getTotaModule" resultType="int" >
+		select count(*) from module
+	</select>
+
+
+</mapper>

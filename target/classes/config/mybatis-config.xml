@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 设置别名 -->
+	<typeAliases>
+		<typeAlias type="com.jxlg.entity.User" alias="user" />
+		<typeAlias type="com.jxlg.entity.Module" alias="module" />
+		<typeAlias type="com.jxlg.entity.Problem" alias="problem" />
+		<typeAlias type="com.jxlg.entity.Useranswer" alias="useranswer" />
+		<typeAlias type="com.jxlg.entity.Qap" alias="qap" />
+		<typeAlias type="com.jxlg.entity.Questionnaire" alias="questionnaire" />
+	</typeAliases>
+	<!-- <mappers>
+		<mapper  resource="com.jxlg.mapper/ModuleMapper.xml"/>
+		<package name="com.jxlg.mapper"/>
+	</mappers> -->
+
+</configuration>
+
+

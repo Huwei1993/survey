@@ -1,0 +1,8 @@
+package com.jxlg.service;
+
+import com.jxlg.entity.Questionnaire;
+
+public interface IQuestionnaireService {
+	//添加问卷表
+	public int addQuestionnaire(Questionnaire questionnaire);
+}

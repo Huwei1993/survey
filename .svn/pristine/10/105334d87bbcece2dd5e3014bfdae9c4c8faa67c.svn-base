@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.QuestionnaireDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="questionnaire" id="questionnaireResultMap">
+		<id column="qid" property="qid" />
+		<result column="qname" property="qname" />
+		<result column="uid" property="uid" />
+		<result column="etime" property="etime" />
+		<result column="stime" property="stime" />
+		<result column="ftime" property="ftime" />
+		<result column="qexplain" property="qexplain" />
+		<result column="quse" property="quse" />
+		<result column="mid" property="mid" />
+	</resultMap>
+
+
+	<!-- 查询所有的调查表 -->
+	<select id="findAllQuestionnaire" resultMap="questionnaireResultMap">
+		select * from
+		questionnaire
+	</select>
+
+
+	<!-- 多条件查询调差表 -->
+	<select id="findQuestionnaire" resultMap="questionnaireResultMap"
+		parameterType="questionnaire">
+
+		select * from Questionnaire where
+		<if test="qid!=0">
+			qid = #{qid}
+			<if test="ftime!=null or stime!=null or quse!=null or etime!=null or qname!=null or qexplain!=null or mid!=0 or uid!=0">and</if>
+		</if>
+		<if test="uid!=0">
+			uid = #{uid} 
+			<if test="ftime!=null or stime!=null or quse!=null or etime!=null or qname!=null or qexplain!=null or mid!=0">and</if>
+		</if>
+		<if test="mid!=0">
+			mid = #{mid}
+			<if test="ftime!=null or stime!=null or quse!=null or etime!=null or qname!=null or qexplain!=null">and</if>
+		</if>
+		<!-- 实现关键字查询， qexplain与qname内容相同-->
+		<if test="qexplain!=null">
+			(qexplain like CONCAT('%',#{qexplain},'%') or
+			qname like CONCAT('%',#{qname},'%'))
+			<if test="ftime!=null or stime!=null or quse!=null or etime!=null">and</if>
+		</if>
+		<if test="etime!=null">
+			to_days(#{etime})-to_days(etime)=0 
+			<if test="ftime!=null or stime!=null or quse!=null">and</if>
+		</if>
+		<if test="quse!=null">
+			quse = #{quse}
+			<if test="ftime!=null or stime!=null">and</if>
+		</if>
+		<if test="stime!=null">
+			to_days(#{stime})-to_days(ftime)&lt;=0 and
+			to_days(#{stime})-to_days(stime)&lt;=0
+			<if test="ftime!=null">and</if>
+		</if>
+		<if test="ftime!=null">
+			to_days(#{ftime})-to_days(ftime)&gt;=0 and
+			to_days(#{ftime})-to_days(stime)&gt;=0
+		</if>
+
+	</select>
+
+	<!-- 插入调查表 -->
+	<insert id="addQuestionnaire" parameterType="questionnaire">
+		insert into
+		questionnaire(qname,uid,etime,stime,ftime,qexplain,mid,quse)
+		values(#{qname},#{uid},#{etime}, #{stime}, #{ftime},#{qexplain},
+		#{mid}, #{quse})
+	</insert>
+
+
+	<!-- 修改调差表 -->
+	<update id="updateQuestionnaire" parameterType="questionnaire">
+		update
+		questionnaire
+		set qname=#{qname},uid=#{uid},
+		etime=#{etime},stime=#{stime},
+		ftime=#{ftime},qexplain=#{qexplain},
+		quse=#{quse},mid=#{mid} where
+		qid=#{qid}
+	</update>
+
+	<delete id="deleteQById" parameterType="java.lang.Integer">
+		delete from questionnaire
+		where qid = #{qid}
+	</delete>
+
+</mapper>

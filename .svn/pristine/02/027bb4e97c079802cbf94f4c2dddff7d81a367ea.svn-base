@@ -1,0 +1,49 @@
+package com.jxlg.service.impl;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.jxlg.dao.QapDao;
+import com.jxlg.entity.Qap;
+import com.jxlg.service.IQapService;
+/**
+ * 问卷表-问题关系服务接口实现
+ * @author feng
+ *
+ */
+@Service(value = "iQapService")
+public class QapServiceImpl implements IQapService {
+
+	@Resource(name = "qapDao")
+	private QapDao qapDao;
+
+	@Override
+	public Qap findByQaid(int qaid) {
+		return qapDao.findByQaid(qaid);
+	}
+
+	@Override
+	public List<Qap> findByQid(int qid) {
+		return qapDao.findByQid(qid);
+	}
+
+	@Override
+	public List<Qap> findByPid(int pid) {
+		return qapDao.findByPid(pid);
+	}
+
+	@Override
+	public int deleteByQaid(int qaid) {
+		return qapDao.deleteByQaid(qaid);
+	}
+
+	@Override
+	public int deleteByQid(int qid) {
+		return qapDao.deleteByQid(qid);
+	}
+	
+
+}

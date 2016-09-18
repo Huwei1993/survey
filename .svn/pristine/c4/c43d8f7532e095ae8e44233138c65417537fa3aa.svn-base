@@ -1,0 +1,26 @@
+package com.jxlg.service;
+
+import java.util.List;
+
+import com.jxlg.entity.Qap;
+/**
+ * 问卷表-问题关系服务接口
+ * @author feng
+ *
+ */
+public interface IQapService {
+	/*通过Qaid查询*/
+	public Qap findByQaid(int qaid);
+	
+	/*通过Qid查询*/
+	public List<Qap> findByQid(int qid);
+	
+	/*通过Pid查询*/
+	public List<Qap> findByPid(int pid);
+	
+	/*通过Qaid删除*/
+	public int deleteByQaid(int qaid);
+	
+	/*通过qid删除*/
+	public int deleteByQid(int qid);
+}

@@ -1,0 +1,30 @@
+package com.jxlg.dao;
+
+import java.util.List;
+
+import com.jxlg.entity.Questionnaire;
+
+/**
+ * 调查表数据访问层
+ * @author feng
+ * 
+ *
+ */
+public interface QuestionnaireDao {
+	/*查询所有的问卷表*/
+	public List<Questionnaire> findAllQuestionnaire();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	
+	/*修改问卷表*/
+	public int updateQuestionnaire();
+	
+	/*新增问卷表*/
+	public int addQuestionnaire(Questionnaire questionnaire);
+	
+	
+
+}

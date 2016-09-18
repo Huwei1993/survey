@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.UserDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="user" id="userResultMap">
+		<id column="uid" property="uid" />
+		<result column="number" property="number" />
+		<result column="phone" property="phone" />
+		<result column="password" property="password" />
+		<result column="email" property="email" />
+		<result column="peid" property="peid" />
+	</resultMap>
+	
+	<insert id="addUser" parameterType="user">
+		insert into user(number,phone,password,username,email,peid) values(#{number}, #{phone},#{password},#{username}, #{email}, #{peid}) 
+	</insert>
+
+</mapper>

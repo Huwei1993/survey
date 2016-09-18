@@ -1,0 +1,23 @@
+package com.jxlg.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.jxlg.dao.QuestionnaireDao;
+import com.jxlg.entity.Questionnaire;
+import com.jxlg.service.IQuestionnaireService;
+
+@Service(value="iQuestionnaireService")
+public class QuestionnaireserviceImpl implements IQuestionnaireService{
+	
+	@Resource(name="questionnaireDao")
+	private QuestionnaireDao questionnaireDao;
+
+	@Override
+	public int addQuestionnaire(Questionnaire questionnaire) {
+		System.out.println(questionnaire);
+		return questionnaireDao.addQuestionnaire(questionnaire);
+	}
+
+}

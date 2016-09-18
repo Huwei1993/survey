@@ -1,0 +1,53 @@
+package com.jxlg.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.jxlg.entity.Questionnaire;
+import com.jxlg.service.IQuestionnaireService;
+import com.jxlg.service.IUserService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "classpath*:config/applicationContext.xml",
+		"classpath*:config/dispatcher-servlet.xml" })
+public class QuestionnaireTest {
+
+	@Resource(name = "iQuestionnaireService")
+	private IQuestionnaireService iQuestionnaireService;
+
+	@Test
+	public void testAddQuestionnaire() {
+		Date etime = new Date();
+		/**
+		 * java格式化时间
+		 * Date date=new Date(); DateFormat format=new
+		 * SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String
+		 * time=format.format(date);
+		 */
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Date stime = new Date();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		Date ftime = new Date();
+		Questionnaire q = new Questionnaire("90后的兴趣爱好", 2, etime, stime, ftime,
+				"90后的兴趣爱好与精神状况", 1, true);
+		int n = iQuestionnaireService.addQuestionnaire(q);
+		System.out.println(n);
+
+	}
+
+}

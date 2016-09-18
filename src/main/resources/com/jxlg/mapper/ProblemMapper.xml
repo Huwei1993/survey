@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.ProblemDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<!-- <cache readOnly="true" size="10000"></cache> -->
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<!-- <resultMap type="problem" id="problemResultMap"> <id column="pid" property="pid" 
+		/> <result column="question" property="question" /> <result column="aanswer" 
+		property="aanswer" /> <result column="banswer" property="banswer" /> <result 
+		column="canswer" property="canswer" /> <result column="danswer" property="danswer" 
+		/> <result column="ptid" property="ptid" /> <result column="puse" property="puse" 
+		/> </resultMap> -->
+
+
+	<!-- 查询所有的问题 -->
+	<select id="findAllProblem" resultType="problem">
+		select * from
+		problem
+	</select>
+	<!-- 统计数量 -->
+	<select id="getTotalProblems" resultType="int">
+		select count(1) from problem
+		<include refid="whereConstant" />
+	</select>
+
+	<!-- 查询满足条件的用户信息 -->
+	<select id="findProblemPager" resultType="problem">
+		select * from problem
+		<include refid="whereConstant" />
+		limit #{start}, #{limit}
+	</select>
+
+
+
+	<sql id="whereConstant">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="pid!=null">
+				and pid = #{pid}
+			</if>
+			<if test="ptid!=null">
+				and ptid = #{ptid}
+			</if>
+			<if test="puse!=null">
+				and puse = #{puse}
+			</if>
+			<if test="question!=null and question!=''">
+				and (question like CONCAT('%',#{question},'%') or
+				aanswer
+				like
+				CONCAT('%',#{question},'%') or
+				banswer like
+				CONCAT('%',#{question},'%')
+				or
+				canswer like
+				CONCAT('%',#{question},'%') or
+				danswer like
+				CONCAT('%',#{question},'%'))
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入问题 -->
+	<insert id="addProblem" parameterType="problem">
+		insert into
+		problem(question,puse,ptid,aanswer,banswer,canswer,danswer)
+		values(#{question},#{puse},#{ptid}, #{aanswer}, #{banswer},#{canswer},#{danswer})
+	</insert>
+
+
+	<!-- 修改问题 -->
+	<update id="updateProblem" parameterType="problem">
+		update problem set question=#{question},puse=#{puse},ptid=#{ptid},
+		aanswer=#{aanswer},banswer=#{banswer},canswer=#{canswer},danswer=#{danswer}
+		where pid=#{pid}
+	</update>
+
+	<!-- 根据id获取调查表信息 -->
+	<select id="getQuestionnaireById" resultType="questionnaire">
+		select * from
+		problem where pid=#{pid}
+	</select>
+
+	<!-- 批量删除问题 -->
+	<delete id="deletePById" parameterType="Integer">
+		delete from problem where pid in
+		<foreach item="pid" collection="array" open="(" separator=","
+			close=")">
+			#{pid}
+		</foreach>
+	</delete>
+	
+	<!-- 批量查找问题 -->
+	<select id="getProblemByIds" resultType="problem" parameterType="Integer">
+        select * from problem where pid in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

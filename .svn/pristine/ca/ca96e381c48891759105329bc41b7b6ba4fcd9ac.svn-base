@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxlg.dao.ProblemDao">
+
+	<!-- 配置二级缓存，容量及能否被修改 -->
+	<cache readOnly="true" size="10000"></cache>
+
+	<!-- 配置实体类与数据库表之间的映射关系 -->
+	<resultMap type="problem" id="problemResultMap">
+		<id column="pid" property="pid" />
+		<result column="question" property="question" />
+		<result column="aanswer" property="aanswer" />
+		<result column="banswer" property="banswer" />
+		<result column="canswer" property="canswer" />
+		<result column="danswer" property="danswer" />
+		<result column="agrade" property="agrade" />
+		<result column="bgrade" property="bgrade" />
+		<result column="cgrade" property="cgrade" />
+		<result column="dgrade" property="dgrade" />
+		<result column="ptid" property="ptid" />
+		<result column="puse" property="puse" />
+	</resultMap>
+
+
+	<!-- 查询所有的问题 -->
+	<select id="findAllProblem" resultMap="problemResultMap">
+		select * from
+		problem
+	</select>
+
+	<!-- 多条件查询问题 -->
+	<select id="findProblem" resultMap="problemResultMap"
+		parameterType="problem">
+		select * from problem where
+		<if test="pid!=0">
+			pid = #{pid}
+			<if test="question!=null or puse!=null or ptid!=0">and</if>
+		</if>
+		<if test="ptid!=0">
+			ptid = #{ptid}
+			<if test="question!=null or puse!=null">and</if>
+		</if>
+		<if test="puse!=null">
+			puse = #{puse}
+			<if test="question!=null">and</if>
+		</if>
+		<!-- 实现关键字查询，question与a-b-c-danswer内容相同 -->
+		<if test="question!=null">
+			(question like CONCAT('%',#{question},'%') or
+			aanswer like
+			CONCAT('%',#{aanswer},'%') or
+			banswer like CONCAT('%',#{banswer},'%')
+			or
+			canswer like CONCAT('%',#{canswer},'%') or
+			danswer like
+			CONCAT('%',#{danswer},'%'))
+		</if>
+
+	</select>
+
+	<!-- 插入问题 -->
+	<insert id="addProblem" parameterType="problem">
+		insert into
+		problem(question,puse,ptid,aanswer,banswer,canswer,danswer,agrade,bgrade,cgrade,dgrade)
+		values(#{question},#{puse},#{ptid}, #{aanswer}, #{banswer},#{canswer},
+		#{danswer}, #{agrade},#{bgrade},#{cgrade},#{dgrade})
+	</insert>
+
+
+	<!-- 修改问题 -->
+	<update id="updateProblem" parameterType="problem">
+		update problem set question=#{question},puse=#{puse},ptid=#{ptid},
+		aanswer=#{aanswer},banswer=#{banswer},canswer=#{canswer},danswer=#{danswer},
+		agrade=#{agrade},bgrade=#{bgrade},cgrade=#{cgrade},dgrade=#{dgrade}
+		where pid=#{pid}
+	</update>
+
+	<!-- 删除问题 -->
+	<delete id="deleteProblemBypid" parameterType="java.lang.Integer">
+		delete from problem
+		where pid = #{pid}
+	</delete>
+
+</mapper>
